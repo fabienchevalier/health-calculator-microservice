@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: health_api
+    ports:
+      - "5001:5001"
+  
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: health_frontend
+    ports:
+      - "8000:80"
+    depends_on:
+      - api

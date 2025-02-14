@@ -14,10 +14,10 @@ jobs:
   build:
     uses: ./.github/workflows/build-docker-image.yml
     needs:
-        - unit
+      - unit
     with:
-        TOKEN: ${{ secrets.TOKEN }}
+      TOKEN: ${{ secrets.TOKEN }}
   deploy:
     uses: ./.github/workflows/tofu-apply.yml
     needs:
-        - build
+      - build

@@ -18,7 +18,7 @@ docker-build:
 	docker build -t health_microservice .
 
 docker-run:
-	docker run -p 80:8080 health_microservice
+	docker run -p 80:80 health_microservice
 
 docker-clean:
 	docker stop $(docker ps -a -q)

@@ -1,4 +1,11 @@
+<img src="icon.png" align="right" height="96"/>
+
 # Health Microservice
+
+![licence](https://img.shields.io/badge/licence-GPLv3-lightgray)
+![azure](https://img.shields.io/badge/Azure-326CE5?logo=owncloud&logoColor=fff)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
+
 
 A simple Python-based API with a basic frontend that calculates BMI (Body Mass Index) and BMR (Basal Metabolic Rate). This application is built using Flask and provides a web interface for users to interact with.
 

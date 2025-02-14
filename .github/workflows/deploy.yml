@@ -9,7 +9,7 @@ on:
 jobs:
 
 
-  build-and-push:
+  Deploy-On-AzureWebApps:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,9 +25,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
+      
       - name: Unit Test
         run: |
-            make test
+            make venv && make test
     
       - name: Build and push Docker image
         uses: docker/build-push-action@v6

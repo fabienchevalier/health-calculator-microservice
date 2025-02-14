@@ -67,7 +67,7 @@ jobs:
       - name: tofu init
         run: cd terraform && tofu init
 
-      - name: tofu plan
+      - name: tofu apply
         run: cd terraform && tofu apply -auto-approve
     needs:
       - build-and-push

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Health Calculator</h1>
+
+        <button class="collapsible">What are BMI and BMR?</button>
+        <div class="content">
+            <span class="close">&times;</span>
+            <h2>Body Mass Index (BMI)</h2>
+            <p>BMI is a measure of body fat based on your weight in relation to your height. It is commonly used to
+                classify underweight, overweight, and obesity in adults.</p>
+            <h2>Basal Metabolic Rate (BMR)</h2>
+            <p>BMR is the amount of energy expended while at rest in a neutrally temperate environment, in the
+                post-absorptive state (meaning that the digestive system is inactive, which requires about 12 hours of
+                fasting in humans).</p>
+        </div>
+
+        <div class="form-container">
+            <h2>BMI Calculator</h2>
+            <form id="bmi-form">
+                <label for="bmi-height">Height (meters):</label>
+                <input type="number" id="bmi-height" step="0.01" required>
+
+                <label for="bmi-weight">Weight (kg):</label>
+                <input type="number" id="bmi-weight" step="0.1" required>
+
+                <button type="submit">Calculate BMI</button>
+            </form>
+            <p id="bmi-result"></p>
+        </div>
+
+        <div class="form-container">
+            <h2>BMR Calculator</h2>
+            <form id="bmr-form">
+                <label for="bmr-height">Height (cm):</label>
+                <input type="number" id="bmr-height" required>
+
+                <label for="bmr-weight">Weight (kg):</label>
+                <input type="number" id="bmr-weight" step="0.1" required>
+
+                <label for="bmr-age">Age (years):</label>
+                <input type="number" id="bmr-age" required>
+
+                <label for="bmr-gender">Gender:</label>
+                <select id="bmr-gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <button type="submit">Calculate BMR</button>
+            </form>
+            <p id="bmr-result"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

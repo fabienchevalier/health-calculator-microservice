@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend for health-calculator-microservice project",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabienchevalier/health-calculator-microservice.git"
+  },
+  "author": "Fabien CHEVALIER",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/fabienchevalier/health-calculator-microservice/issues"
+  },
+  "homepage": "https://github.com/fabienchevalier/health-calculator-microservice#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,28 @@
+name: Create terraform plan
+
+on: [pull_request]
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    name: Tofu Plan
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Tofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.9.0
+
+      - name: tofu init
+        run: cd terraform && tofu init
+
+      - name: tofu plan
+        run: cd terraform && tofu plan

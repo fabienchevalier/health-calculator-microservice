@@ -1,9 +1,12 @@
 name: Lint
 
 on:
+  pull_request:
+    paths:
+      - 'terraform/**'
   push:
-    branches-ignore:
-      - main
+    paths:
+      - 'terraform/**'
 
 jobs:
   validate:

@@ -8,6 +8,12 @@ permissions:
   contents: read
   pull-requests: write
 
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
 jobs:
   unit:
     uses: ./.github/workflows/unit.yml
@@ -44,8 +50,24 @@ jobs:
           file: Dockerfile.frontend
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/health_frontend:latest
-    
+    needs:
+      - unit
+
   deploy:
-    uses: ./.github/workflows/tofu-apply.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Tofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: 1.9.0
+
+      - name: tofu init
+        run: cd terraform && tofu init
+
+      - name: tofu plan
+        run: cd terraform && tofu apply -auto-approve
     needs:
       - build-and-push

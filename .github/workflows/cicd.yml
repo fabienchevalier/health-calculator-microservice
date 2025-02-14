@@ -16,7 +16,7 @@ jobs:
     needs:
       - unit
     with:
-      TOKEN: ${{ secrets.TOKEN }}
+      TOKEN: ${{ secrets.TOKEN }} 
   deploy:
     uses: ./.github/workflows/tofu-apply.yml
     needs:

@@ -1,19 +1,37 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Collapsible Button Functionality
+document.addEventListener('DOMContentLoaded', async () => {
+    let API_BASE_URL = 'http://localhost:5001/api'; // Default fallback URL
+
+    // Fetch API URL from the backend
+    try {
+        const response = await fetch('/api/config');
+        const config = await response.json();
+        API_BASE_URL = config.API_BASE_URL;
+        console.log('Using API Base URL:', API_BASE_URL);
+    } catch (error) {
+        console.error('Failed to load config:', error);
+    }
+
+    // ✅ Initialize collapsible popups
+    initCollapsibles();
+
+    // ✅ Initialize BMI Form Submission
+    initBMIForm(API_BASE_URL);
+
+    // ✅ Initialize BMR Form Submission
+    initBMRForm(API_BASE_URL);
+});
+
+// ✅ Function to initialize collapsible popups
+function initCollapsibles() {
     const collapsibles = document.getElementsByClassName('collapsible');
     for (let i = 0; i < collapsibles.length; i++) {
         collapsibles[i].addEventListener('click', function () {
             this.classList.toggle('active');
             const content = this.nextElementSibling;
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
-            } else {
-                content.style.display = 'block';
-            }
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
         });
     }
 
-    // Close Button Functionality
     const closes = document.getElementsByClassName('close');
     for (let i = 0; i < closes.length; i++) {
         closes[i].addEventListener('click', function () {
@@ -21,9 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
             content.style.display = 'none';
         });
     }
+}
 
-    // BMI Form Submission
+// ✅ Function to initialize BMI form submission
+function initBMIForm(API_BASE_URL) {
     const bmiForm = document.getElementById('bmi-form');
+    if (!bmiForm) return;
+
     bmiForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const height = parseFloat(document.getElementById('bmi-height').value);
@@ -31,17 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultElement = document.getElementById('bmi-result');
 
         try {
-            const response = await fetch('http://localhost:5001/api/bmi', {
+            const response = await fetch(`${API_BASE_URL}/bmi`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ height, weight }),
             });
 
             const data = await response.json();
-            console.log('BMI Response:', data);
-
             if (response.ok) {
                 resultElement.textContent = `Your BMI is ${data.bmi.toFixed(2)}`;
             } else {
@@ -52,9 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
             resultElement.textContent = `Error: ${error.message}`;
         }
     });
+}
 
-    // BMR Form Submission
+// ✅ Function to initialize BMR form submission
+function initBMRForm(API_BASE_URL) {
     const bmrForm = document.getElementById('bmr-form');
+    if (!bmrForm) return;
+
     bmrForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const height = parseFloat(document.getElementById('bmr-height').value);
@@ -64,17 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultElement = document.getElementById('bmr-result');
 
         try {
-            const response = await fetch('http://localhost:5001/api/bmr', {
+            const response = await fetch(`${API_BASE_URL}/bmr`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ height, weight, age, gender }),
             });
 
             const data = await response.json();
-            console.log('BMR Response:', data);
-
             if (response.ok) {
                 resultElement.textContent = `Your BMR is ${data.bmr.toFixed(2)}`;
             } else {
@@ -85,4 +103,4 @@ document.addEventListener('DOMContentLoaded', () => {
             resultElement.textContent = `Error: ${error.message}`;
         }
     });
-});
+}

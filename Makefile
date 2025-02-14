@@ -1,4 +1,4 @@
-.PHONY: clean venv run docker-build docker-run test frontend serve-frontend
+.PHONY: clean venv run docker-up docker-down test frontend
 
 # Custom name for the virtual environment
 VENV_DIR = .venv
@@ -14,25 +14,14 @@ venv:
 run:
 	. $(VENV_DIR)/bin/activate && python run.py
 
-docker-build:
-	docker build -t health_microservice .
+docker-up:
+	docker compose up -d
 
-docker-run:
-	docker run -p 5000:5000 health_microservice
+docker-down:
+	docker compose down
 
 test:
 	. $(VENV_DIR)/bin/activate && pytest tests/
 
 frontend:
-	# Serve frontend on http://localhost:8000
-	python -m http.server --directory frontend 8000
-
-serve-frontend:
-	# Serve both Flask and frontend concurrently, and handle SIGINT (Ctrl+C) for graceful shutdown
-	@echo "Serving Flask backend and frontend..."
-	( \
-	  trap 'kill 0' SIGINT; \
-	  python run.py & \
-	  python -m http.server --directory frontend 8000 & \
-	  wait \
-	)
+	cd frontend && node server.js

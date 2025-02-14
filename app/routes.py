@@ -47,3 +47,4 @@ def bmr():
         return jsonify({"bmr": bmr_value}), 200
     else:
         return jsonify({"error": "Missing data"}), 400
+    

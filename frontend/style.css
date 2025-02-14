@@ -32,10 +32,66 @@ h1 {
     color: #333;
 }
 
+h2 {
+    color: #333;
+}
+
+.collapsible {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.collapsible:hover {
+    background-color: #218838;
+}
+
+.content {
+    padding: 20px;
+    display: none;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Slightly less transparent background */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Shadow for content section */
+    border-radius: 10px;
+    /* Adding border-radius for content */
+    margin-bottom: 20px;
+    position: relative;
+    /* To position the close button */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
 .form-container {
     margin-bottom: 20px;
-    width: 100%;
-    /* Ensure form containers take the full width within the container */
+    padding: 20px;
+    /* Adding padding to the form container */
+    background: rgba(255, 255, 255, 0.8);
+    /* Slightly less transparent background for form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Shadow for form container */
+    border-radius: 10px;
+    /* Adding border-radius for form container */
+    width: 80%;
+    /* Ensure form containers take a good width within the container */
 }
 
 label {

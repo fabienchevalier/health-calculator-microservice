@@ -20,6 +20,11 @@ docker-build:
 docker-run:
 	docker run -p 80:8080 health_microservice
 
+docker-clean:
+	docker stop $(docker ps -a -q)
+	docker rm $(docker ps -a -q)
+	docker rmi $(docker images -q)
+
 test:
 	. $(VENV_DIR)/bin/activate && pytest tests/
 

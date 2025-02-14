@@ -20,12 +20,42 @@ Before running the application, ensure you have the following installed:
 - Docker (if using containerization)
 - Azure account (for deployment)
 
-## Setup and Running the Application Locally
+## Setup and Running the Application Locally (Docker)
+
+The `Dockerfile` provided consist of a multi-stage build that builds the frontend and backend separately. The final image is a lightweight image that serves the frontend using nginx and the backend using [supervisord](https://supervisord.org/).
 
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/your-repo/health-microservice.git
-cd health-microservice
+git clone https://github.com/fabienchevalier/health-calculator-microservice
+cd health-calculator-microservice
+```
+
+### 2. Build the Docker Image
+```sh
+make docker-build
+```
+
+### 3. Run the Docker Container
+```sh
+make docker-run
+```
+The application will be available on `http://localhost:80` (mapped to port 8080 inside the container).
+
+## Deployment
+The application is configured for continuous deployment on **Azure Web Apps**. The CI/CD pipeline automatically triggers deployment whenever changes are pushed to the repository.
+
+### Deployment Steps
+1. Push code to the repository.
+2. The CI/CD pipeline automatically builds and deploys the application to Azure.
+3. The application is accessible via the Azure Web App URL.
+
+## Contributing
+
+You can install a local development environment by following the steps below:
+
+### 1. Clone the Repository
+```sh
+git clone https://github.com/fabienchevalier/health-calculator-microservice
 ```
 
 ### 2. Set Up Virtual Environment
@@ -38,7 +68,6 @@ This will create a virtual environment and install all necessary dependencies fr
 ```sh
 make run
 ```
-The Flask server will start, and you can access the API.
 
 ### 4. Running the Frontend
 To serve the frontend on `http://localhost:8000`, run:
@@ -46,37 +75,17 @@ To serve the frontend on `http://localhost:8000`, run:
 make frontend
 ```
 
-### 5. Running Tests
+### 5. Cleanup
+To remove the virtual environment and other generated files, run:
 ```sh
-make test
+make clean
+# If you wish to cleanup docker images and containers as well
+make docker-clean
 ```
-This command runs the test suite using `pytest`.
+> [!WARNING]  
+> This will literally clear all images and containers on your system. Use with caution.
 
-## Running the Application with Docker
-
-The `Dockerfile` provided consist of a multi-stage build that builds the frontend and backend separately. The final image is a lightweight image that serves the frontend using nginx and the backend using [supervisord](https://supervisord.org/).
-
-### 1. Build the Docker Image
-```sh
-make docker-build
-```
-
-### 2. Run the Docker Container
-```sh
-make docker-run
-```
-The application will be available on `http://localhost:8080` (mapped to port 8080 inside the container).
-
-## Deployment
-The application is configured for continuous deployment on **Azure Web Apps**. The CI/CD pipeline automatically triggers deployment whenever changes are pushed to the repository.
-
-### Deployment Steps
-1. Push code to the repository.
-2. The CI/CD pipeline automatically builds and deploys the application to Azure.
-3. The application is accessible via the Azure Web App URL.
-
-## Contributing
-Feel free to fork this repository and submit pull requests with improvements and fixes.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](./LICENSE) file for details.
+

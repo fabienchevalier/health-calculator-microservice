@@ -18,7 +18,7 @@ docker-build:
 	docker build -t health_microservice .
 
 docker-run:
-	docker run -p 5000:5000 health_microservice
+	docker run -p 80:8080 health_microservice
 
 test:
 	. $(VENV_DIR)/bin/activate && pytest tests/
@@ -26,13 +26,3 @@ test:
 frontend:
 	# Serve frontend on http://localhost:8000
 	python -m http.server --directory frontend 8000
-
-serve-frontend:
-	# Serve both Flask and frontend concurrently, and handle SIGINT (Ctrl+C) for graceful shutdown
-	@echo "Serving Flask backend and frontend..."
-	( \
-	  trap 'kill 0' SIGINT; \
-	  python run.py & \
-	  python -m http.server --directory frontend 8000 & \
-	  wait \
-	)

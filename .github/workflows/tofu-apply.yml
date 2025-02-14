@@ -3,26 +3,26 @@ name: Apply terraform plan
 on:
   workflow_call:
 
-permissions:
-  contents: read
-  pull-requests: write
+env:
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
 jobs:
   apply:
     runs-on: ubuntu-latest
     name: Apply tofu plan
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-    
-      - name: Login to Azure
-       uses: azure/login@v2
-       with:
-         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: tofu apply
-        uses: dflook/tofu-apply@v1
+      - name: Setup Tofu
+        uses: opentofu/setup-opentofu@v1
         with:
-          path: ./terraform
+          tofu_version: 1.9.0
+
+      - name: tofu init
+        run: cd terraform && tofu init
+
+      - name: tofu plan
+        run: cd terraform && tofu apply -auto-approve

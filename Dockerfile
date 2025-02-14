@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 
 # Copy backend files
@@ -27,7 +27,7 @@ RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose ports
-EXPOSE 80 5000
+EXPOSE 80 5001
 
 # Start Supervisor to run both services
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

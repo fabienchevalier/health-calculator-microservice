@@ -10,7 +10,7 @@ A simple Python-based API with a basic frontend that calculates BMI (Body Mass I
 ## Features
 - Calculate BMI and BMR using a simple web interface.
 - Flask-based backend API.
-- Lightweight frontend served via Python's HTTP server.
+- Lightweight frontend served via nginx.
 - Containerized with Docker for easy deployment.
 - CI/CD pipeline set up for automatic deployment to Azure Web Apps.
 
@@ -34,7 +34,7 @@ make venv
 ```
 This will create a virtual environment and install all necessary dependencies from `requirements.txt`.
 
-### 3. Run the Application
+### 3. Running the API
 ```sh
 make run
 ```
@@ -54,6 +54,8 @@ This command runs the test suite using `pytest`.
 
 ## Running the Application with Docker
 
+The `Dockerfile` provided consist of a multi-stage build that builds the frontend and backend separately. The final image is a lightweight image that serves the frontend using nginx and the backend using [supervisord](https://supervisord.org/).
+
 ### 1. Build the Docker Image
 ```sh
 make docker-build
@@ -63,7 +65,7 @@ make docker-build
 ```sh
 make docker-run
 ```
-The application will be available on `http://localhost` (mapped to port 8080 inside the container).
+The application will be available on `http://localhost:8080` (mapped to port 8080 inside the container).
 
 ## Deployment
 The application is configured for continuous deployment on **Azure Web Apps**. The CI/CD pipeline automatically triggers deployment whenever changes are pushed to the repository.

@@ -2,6 +2,10 @@ name: Build and Push Docker images
 
 on:
   workflow_call:
+    inputs:
+      TOKEN:
+        required: true
+        type: string
 
 jobs:
   build-and-push:
@@ -19,7 +23,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: test
+          password: ${{ secrets.TOKEN }}
 
       - name: Build and push API image
         uses: docker/build-push-action@v6

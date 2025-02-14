@@ -2,6 +2,11 @@
 
 A simple Python-based API with a basic frontend that calculates BMI (Body Mass Index) and BMR (Basal Metabolic Rate). This application is built using Flask and provides a web interface for users to interact with.
 
+> [!NOTE]  
+> This is a student project and should be considered as such
+
+![screenshot](./screenshot.png)
+
 ## Features
 - Calculate BMI and BMR using a simple web interface.
 - Flask-based backend API.
@@ -73,7 +78,3 @@ Feel free to fork this repository and submit pull requests with improvements and
 
 ## License
 This project is licensed under the MIT License.
-
----
-For any questions or support, contact [your-email@example.com].
-
